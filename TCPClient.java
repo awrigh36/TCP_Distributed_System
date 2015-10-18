@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TCPClient {
    private static ArrayList<Long> cycleTimeList = new ArrayList<Long>();
@@ -15,7 +14,7 @@ public class TCPClient {
        BufferedReader in = null; // for reading form ServerRouter
        InetAddress addr = InetAddress.getLocalHost();
        String host = addr.getHostAddress(); // Client machine's IP
-       String routerName = "127.0.0.1"; // ServerRouter host name
+       String routerName = "localhost"; // ServerRouter host name
        int SockNum = 5555; // port number
 		
        // Tries to connect to the ServerRouter
@@ -43,8 +42,8 @@ public class TCPClient {
 		long t0, t1, t = 0;
 		
 		// Communication process (initial sends/receives
-		out.println(address);// initial send (IP of the destination Server)
-		fromServer = in.readLine();//initial receive from router (verification of connection)
+		out.println(address); // initial send (IP of the destination Server)
+		fromServer = in.readLine(); // initial receive from router (verification of connection)
 		System.out.println("ServerRouter: " + fromServer);
 		out.println(host); // Client sends the IP of its machine as initial send
 		t0 = System.currentTimeMillis();
@@ -77,6 +76,7 @@ public class TCPClient {
 		CSVFileWriter.writeCsvFile(fileName);
 		
 		// closing connections
+		fromFile.close();
         out.close();
         in.close();
         Socket.close();
